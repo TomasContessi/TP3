@@ -16,4 +16,8 @@ C_DEPS :=
 SUBDIRS := \
 example/src \
 freertos/src \
+lpc_board_nxp_lpcxpresso_4337/Debug/src \
+lpc_board_nxp_lpcxpresso_4337/src \
+lpc_chip_43xx/Debug/src \
+lpc_chip_43xx/src \
 

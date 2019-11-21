@@ -8,6 +8,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include lpc_chip_43xx/src/subdir.mk
+-include lpc_chip_43xx/Debug/src/subdir.mk
+-include lpc_board_nxp_lpcxpresso_4337/src/subdir.mk
+-include lpc_board_nxp_lpcxpresso_4337/Debug/src/subdir.mk
 -include freertos/src/subdir.mk
 -include example/src/subdir.mk
 -include subdir.mk
@@ -30,7 +34,7 @@ all: freertos_examples_1_to_9.axf
 freertos_examples_1_to_9.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:\Users\Admin\Documents\git\embebidos\TP3_embebidos\lpc_chip_43xx\Debug" -L"C:\Users\Admin\Documents\git\embebidos\TP3_embebidos\lpc_board_nxp_lpcxpresso_4337\Debug" -Xlinker -Map="freertos_examples_1_to_9.map" -Xlinker --gc-sections -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -T "freertos_examples_1_to_9_Debug.ld" -o "freertos_examples_1_to_9.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -Xlinker -Map="freertos_examples_1_to_9.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "proyecto_Debug.ld" -o "freertos_examples_1_to_9.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
@@ -42,7 +46,7 @@ clean:
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "freertos_examples_1_to_9.axf"; # arm-none-eabi-objcopy -v -O binary "freertos_examples_1_to_9.axf" "freertos_examples_1_to_9.bin" ; # checksum -p LPC4337 -d "freertos_examples_1_to_9.bin";
+	-arm-none-eabi-size "freertos_examples_1_to_9.axf"; # arm-none-eabi-objcopy -v -O binary "freertos_examples_1_to_9.axf" "freertos_examples_1_to_9.bin" ; # checksum -p LPC1343 -d "freertos_examples_1_to_9.bin";
 	-@echo ' '
 
 .PHONY: all clean dependents post-build
